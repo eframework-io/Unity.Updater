@@ -59,12 +59,13 @@
       }
     },
     "io.eframework.unity.editor": {
-      "version": "file:../../../Unity.Editor",
-      "depth": 0,
-      "source": "local",
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
       "dependencies": {
         "io.eframework.unity.utility": "1.0.0"
-      }
+      },
+      "url": "https://registry.npmjs.com"
     },
     "io.eframework.unity.updater": {
       "version": "file:../../",
@@ -76,10 +77,11 @@
       }
     },
     "io.eframework.unity.utility": {
-      "version": "file:../../../Unity.Utility",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
