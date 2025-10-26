@@ -1,0 +1,11 @@
+{
+    "name": "EFramework.Unity.Updater.Tests",
+    "references": [
+        "EFramework.Unity.Utility",
+        "EFramework.Unity.Editor",
+        "EFramework.Unity.Updater"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
