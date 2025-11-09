@@ -5,7 +5,7 @@
 [![DeepWiki](https://img.shields.io/badge/DeepWiki-Explore-blue)](https://deepwiki.com/eframework-io/Unity.Updater)
 [![Discord](https://img.shields.io/discord/1422114598835851286?label=Discord&logo=discord)](https://discord.gg/XMPx2wXSz3)
 
-XInstaller 提供了安装包的更新功能，支持自动下载并解压安装。
+提供了安装包的更新功能，支持自动下载并解压安装。
 
 ## 功能特性
 

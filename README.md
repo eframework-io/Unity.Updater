@@ -9,9 +9,9 @@
 
 ## 功能特性
 
-- [XUpdater](Documentation~/XUpdater.md) 提供了更新流程控制和事件通知，实现了可扩展的业务处理接口
-- [XPatcher](Documentation~/XPatcher.md) 实现了补丁包的提取、校验和下载功能，采用并发任务提升更新效率
-- [XInstaller](Documentation~/XInstaller.md) 提供了安装包的更新功能，支持自动下载并解压安装
+- [XUpdater](Documentation~/XUpdater.md) 提供了更新流程控制和事件通知，实现了可扩展的业务处理接口。
+- [XPatcher](Documentation~/XPatcher.md) 实现了补丁包的提取、校验和下载功能，采用并发任务提升更新效率。
+- [XInstaller](Documentation~/XInstaller.md) 提供了安装包的更新功能，支持自动下载并解压安装。
 
 ## 常见问题
 

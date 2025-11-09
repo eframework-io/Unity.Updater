@@ -5,7 +5,7 @@
 [![DeepWiki](https://img.shields.io/badge/DeepWiki-Explore-blue)](https://deepwiki.com/eframework-io/Unity.Updater)
 [![Discord](https://img.shields.io/discord/1422114598835851286?label=Discord&logo=discord)](https://discord.gg/XMPx2wXSz3)
 
-XPatcher 实现了补丁包的提取、校验和下载功能，采用并发任务提升更新效率。
+实现了补丁包的提取、校验和下载功能，采用并发任务提升更新效率。
 
 ## 功能特性
 

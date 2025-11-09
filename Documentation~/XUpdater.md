@@ -5,7 +5,7 @@
 [![DeepWiki](https://img.shields.io/badge/DeepWiki-Explore-blue)](https://deepwiki.com/eframework-io/Unity.Updater)
 [![Discord](https://img.shields.io/discord/1422114598835851286?label=Discord&logo=discord)](https://discord.gg/XMPx2wXSz3)
 
-XUpdater 提供了更新流程控制和事件通知，实现了可扩展的业务处理接口。
+提供了更新流程控制和事件通知，实现了可扩展的业务处理接口。
 
 ## 功能特性
 
