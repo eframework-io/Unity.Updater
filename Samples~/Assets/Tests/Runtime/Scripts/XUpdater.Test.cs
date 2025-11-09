@@ -223,26 +223,26 @@ public class TestXUpdater
 
             yield return XUpdater.Process(handler);
 
-            Assert.IsTrue(isUpdateStart, "更新开始事件应当被触发。");
-            Assert.IsTrue(isUpdateFinish, "更新完成事件应当被触发");
-            Assert.AreNotEqual(isInstall, isPatcherStart, "补丁包更新开始事件是否触发应当与 isInstall 相反。");
-            Assert.AreNotEqual(isInstall, isPatcherFinish, "补丁包更新完成事件是否触发应当与 isInstall 相反。");
-            Assert.AreEqual(isInstall, isInstallerStart, "安装包更新开始是否触发应当与 isInstall 一致。");
-            Assert.AreEqual(isInstall, isInstallerFinish, "安装包更新完成是否触发应当与 isInstall 一致。");
+            Assert.That(isUpdateStart, Is.True, "更新开始事件应当被触发。");
+            Assert.That(isUpdateFinish, Is.True, "更新完成事件应当被触发");
+            Assert.That(isPatcherStart, Is.Not.EqualTo(isInstall), "补丁包更新开始事件是否触发应当与 isInstall 相反。");
+            Assert.That(isPatcherFinish, Is.Not.EqualTo(isInstall), "补丁包更新完成事件是否触发应当与 isInstall 相反。");
+            Assert.That(isInstallerStart, Is.EqualTo(isInstall), "安装包更新开始是否触发应当与 isInstall 一致。");
+            Assert.That(isInstallerFinish, Is.EqualTo(isInstall), "安装包更新完成是否触发应当与 isInstall 一致。");
             if (!isInstall)
             {
-                Assert.IsTrue(isPatcherExtractStart, "补丁包提取开始事件应当被触发。");
-                Assert.IsTrue(isPatcherExtractProgress, "补丁包提取更新事件应当被触发。");
-                Assert.IsTrue(isPatcherExtractSucceeded, "补丁包提取成功事件应当被触发。");
-                Assert.IsFalse(isPatcherExtractFailed, "补丁包提取失败事件应当不被触发。");
-                Assert.IsTrue(isPatcherValidateStart, "补丁包校验开始事件应当被触发。");
-                Assert.IsTrue(isPatcherValidateProgress, "补丁包校验更新事件应当被触发。");
-                Assert.IsTrue(isPatcherValidateSucceeded, "补丁包校验成功事件应当被触发。");
-                Assert.IsFalse(isPatcherValidateFailed, "补丁包校验失败事件应当不被触发。");
-                Assert.IsTrue(isPatcherDownloadStart, "补丁包下载开始事件应当被触发。");
-                Assert.IsTrue(isPatcherDownloadUpdate, "补丁包下载更新事件应当被触发。");
-                Assert.IsTrue(isPatcerhDownloadSucceeded, "补丁包下载成功事件应当被触发。");
-                Assert.IsFalse(isPatcherDownloadFailed, "补丁包下载失败事件应当不被触发。");
+                Assert.That(isPatcherExtractStart, Is.True, "补丁包提取开始事件应当被触发。");
+                Assert.That(isPatcherExtractProgress, Is.True, "补丁包提取更新事件应当被触发。");
+                Assert.That(isPatcherExtractSucceeded, Is.True, "补丁包提取成功事件应当被触发。");
+                Assert.That(isPatcherExtractFailed, Is.False, "补丁包提取失败事件应当不被触发。");
+                Assert.That(isPatcherValidateStart, Is.True, "补丁包校验开始事件应当被触发。");
+                Assert.That(isPatcherValidateProgress, Is.True, "补丁包校验更新事件应当被触发。");
+                Assert.That(isPatcherValidateSucceeded, Is.True, "补丁包校验成功事件应当被触发。");
+                Assert.That(isPatcherValidateFailed, Is.False, "补丁包校验失败事件应当不被触发。");
+                Assert.That(isPatcherDownloadStart, Is.True, "补丁包下载开始事件应当被触发。");
+                Assert.That(isPatcherDownloadUpdate, Is.True, "补丁包下载更新事件应当被触发。");
+                Assert.That(isPatcerhDownloadSucceeded, Is.True, "补丁包下载成功事件应当被触发。");
+                Assert.That(isPatcherDownloadFailed, Is.False, "补丁包下载失败事件应当不被触发。");
             }
         }
     }
@@ -260,8 +260,8 @@ public class TestXUpdater
             var handler = new MyHandler();
             handler.CheckResult = result;
             yield return XUpdater.Process(handler);
-            Assert.AreEqual(true, isUpdateStart, "更新开始事件应当始终被触发。");
-            Assert.AreEqual(result, isUpdateFinish, "更新完成事件是否触发应当与 checkResult 一致。");
+            Assert.That(isUpdateStart, Is.True, "更新开始事件应当始终被触发。");
+            Assert.That(isUpdateFinish, Is.EqualTo(result), "更新完成事件是否触发应当与 checkResult 一致。");
         }
     }
 
@@ -272,19 +272,19 @@ public class TestXUpdater
 
         handler.SetPreprocessError(0);
         yield return XUpdater.Process(handler);
-        Assert.AreEqual(3, handler.RetriedCount, "重试次数应当为 3。");
+        Assert.That(handler.RetriedCount, Is.EqualTo(3), "重试次数应当为 3。");
 
         handler.RetriedCount = 0;
         handler.SetPreprocessError(0);
         handler.SetProcessError(0);
         yield return XUpdater.Process(handler);
-        Assert.AreEqual(6, handler.RetriedCount, "重试次数应当为 6。");
+        Assert.That(handler.RetriedCount, Is.EqualTo(6), "重试次数应当为 6。");
 
         handler.RetriedCount = 0;
         handler.EndOnError = true;
         handler.SetPreprocessError(0);
         yield return XUpdater.Process(handler);
-        Assert.AreEqual(0, handler.RetriedCount, "重试次数应当为 0。");
+        Assert.That(handler.RetriedCount, Is.EqualTo(0), "重试次数应当为 0。");
     }
 
     [UnityTest]
@@ -303,8 +303,8 @@ public class TestXUpdater
         LogAssert.Expect(LogType.Error, new Regex("MyPatcher.Cleanup Failed"));
         handler.SetPostprocessError(0);
         yield return XUpdater.Process(handler);
-        Assert.IsTrue(isExtractFailed, "补丁提取失败事件应当被触发。");
-        Assert.IsTrue(isValidateFailed, "补丁校验失败事件应当被触发。");
-        Assert.IsTrue(isDownloadFailed, "补丁下载失败事件应当被触发。");
+        Assert.That(isExtractFailed, Is.True, "补丁提取失败事件应当被触发。");
+        Assert.That(isValidateFailed, Is.True, "补丁校验失败事件应当被触发。");
+        Assert.That(isDownloadFailed, Is.True, "补丁下载失败事件应当被触发。");
     }
 }

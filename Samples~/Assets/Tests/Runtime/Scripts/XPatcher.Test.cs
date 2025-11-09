@@ -109,7 +109,7 @@ public class TestXPatcher
             };
 
             var report = XEditor.Tasks.Execute(mc);
-            Assert.AreEqual(report.Result, XEditor.Tasks.Result.Succeeded, "远端文件上传失败");
+            Assert.That(report.Result, Is.EqualTo(XEditor.Tasks.Result.Succeeded), "远端文件上传失败");
         }
 
         // 执行更新流程
@@ -126,12 +126,12 @@ public class TestXPatcher
             yield return patcher.Preprocess();
 
             // 验证清单文件是否被正确处理
-            Assert.IsTrue(string.IsNullOrEmpty(patcher.Error), "预处理不应该有错误");
-            Assert.IsNotNull(patcher.LocalMani, "本地清单应该被初始化");
-            Assert.IsNotNull(patcher.RemoteMani, "远程清单应该被初始化");
-            Assert.IsTrue(patcher.DiffInfo.Added.Count == 50, "差异信息应该包含 50 个已添加的文件");
-            Assert.IsTrue(patcher.DiffInfo.Deleted.Count == 50, "差异信息应该包含 50 个已删除的文件");
-            Assert.IsTrue(patcher.DiffInfo.Modified.Count == 50, "差异信息应该包含 50 个已修改的文件");
+            Assert.That(string.IsNullOrEmpty(patcher.Error), Is.True, "预处理不应该有错误");
+            Assert.That(patcher.LocalMani, Is.Not.Null, "本地清单应该被初始化");
+            Assert.That(patcher.RemoteMani, Is.Not.Null, "远程清单应该被初始化");
+            Assert.That(patcher.DiffInfo.Added.Count, Is.EqualTo(50), "差异信息应该包含 50 个已添加的文件");
+            Assert.That(patcher.DiffInfo.Deleted.Count, Is.EqualTo(50), "差异信息应该包含 50 个已删除的文件");
+            Assert.That(patcher.DiffInfo.Modified.Count, Is.EqualTo(50), "差异信息应该包含 50 个已修改的文件");
 
             // 测试 Process 方法
             yield return patcher.Process();
@@ -140,10 +140,10 @@ public class TestXPatcher
             foreach (var file in patcher.RemoteMani.Files)
             {
                 var path = XFile.PathJoin(localDir, file.Name);
-                Assert.IsTrue(XFile.HasFile(path), "文件应当存在于本地：" + file.Name);
-                Assert.AreEqual(XFile.FileMD5(path), file.MD5, "文件应当与远程文件一致：" + file.Name);
+                Assert.That(XFile.HasFile(path), Is.True, "文件应当存在于本地：" + file.Name);
+                Assert.That(XFile.FileMD5(path), Is.EqualTo(file.MD5), "文件应当与远程文件一致：" + file.Name);
             }
-            Assert.IsTrue(patcher.RemoteMani.Files.Count + 1 == Directory.GetFiles(localDir).Length, "本地文件数量应当等于远程文件数量加 1");
+            Assert.That(patcher.RemoteMani.Files.Count + 1, Is.EqualTo(Directory.GetFiles(localDir).Length), "本地文件数量应当等于远程文件数量加 1");
         }
         finally
         {
@@ -175,7 +175,7 @@ public class TestXPatcher
         patcher.SetSize(phase, 10000);    // 设置总大小10000字节
         patcher.SetProgress(phase, 0.5f); // 当前进度50%，处理了5000字节
         var result = patcher.Speed(phase);
-        Assert.AreEqual(expected, result);
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [TestCase(XPatcher.Phase.Download, 0.5f, "下载阶段")]
@@ -188,7 +188,7 @@ public class TestXPatcher
         patcher.SetProgress(XPatcher.Phase.Download, 0.5f);
         patcher.SetProgress(XPatcher.Phase.Extract, 0.6f);
         patcher.SetProgress(XPatcher.Phase.Validate, 0.7f);
-        Assert.AreEqual(expected, patcher.Progress(phase));
+        Assert.That(patcher.Progress(phase), Is.EqualTo(expected));
     }
 
     [TestCase(XPatcher.Phase.Download, 1024, "下载阶段")]
@@ -201,6 +201,6 @@ public class TestXPatcher
         patcher.SetSize(XPatcher.Phase.Download, 1024);
         patcher.SetSize(XPatcher.Phase.Extract, 512);
         patcher.SetSize(XPatcher.Phase.Validate, 256);
-        Assert.AreEqual(expected, patcher.Size(phase));
+        Assert.That(patcher.Size(phase), Is.EqualTo(expected));
     }
 }
